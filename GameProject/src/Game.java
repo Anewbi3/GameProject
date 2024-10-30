@@ -19,7 +19,7 @@ public class Game {
 			System.out.print("What do you want to do: 	");
 			command = input.nextLine();
 			String[] words = command.split(" ");
-			
+			// comment
 			switch(words[0]) {
 			case "e":
 			case "w":
