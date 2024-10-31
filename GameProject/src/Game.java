@@ -2,12 +2,13 @@ import java.util.*;
 
 public class Game {
 	public static ArrayList<Item> items = new ArrayList<Item>();
+	static Room currentRoom = World.buildWorld();
 	public static void main(String[] args) {
 		runGame();
 	}
 	
 	public static void runGame() {
-		Room currentRoom = World.buildWorld();
+
 		
 		Scanner input = new Scanner(System.in);
 		
@@ -87,6 +88,46 @@ public class Game {
 					}
 				}
 				break;
+			case "use":
+				Item itemFoundInCurrentRoom = currentRoom.getItemInRoom(words[1]);
+				
+				System.out.println("You are attempting to take the " + words[1] + ".");
+				
+				if (itemFoundInCurrentRoom != null) {
+					itemFoundInCurrentRoom.use();
+				}
+				else {
+					Item item_in_inventory = null;
+					for (Item item_found_in_inventory : items) {
+						String item_name  = item_found_in_inventory.getName();
+						
+						if (item_name.equals(words[1])) {
+							item_in_inventory = item_found_in_inventory;
+						}
+					}
+					item_in_inventory.use();
+				}
+				break;
+			case "open":
+				Item itemToOpenInCurrentRoom = currentRoom.getItemInRoom(words[1]);
+				
+				System.out.println("You are attempting to take the " + words[1] + ".");
+				
+				if (itemToOpenInCurrentRoom != null) {
+					itemToOpenInCurrentRoom.open();
+				}
+				else {
+					Item item_in_inventory = null;
+					for (Item item_found_in_inventory : items) {
+						String item_name  = item_found_in_inventory.getName();
+						
+						if (item_name.equals(words[1])) {
+							item_in_inventory = item_found_in_inventory;
+						}
+					}
+					item_in_inventory.use();
+				}
+				break;
 			default:
 				System.out.println("I don't know what that means.");
 			}
@@ -95,5 +136,28 @@ public class Game {
 		} while(!command.equals("x"));
 		
 		input.close();
+	}
+	
+	public static void print(Object obj) {
+		System.out.println(obj.toString());
+	}
+	
+	public static Room getCurrentRoom() 
+	{
+		return currentRoom;
+	}
+	
+	public static Item getItemFromPlayerInventory(String item_name_arg) 
+	{
+		Item item_in_inventory = null;
+		for (Item item : items) {
+			String item_name = item.getName();
+			
+			if (item_name.equals(item_name_arg)) {
+				item_in_inventory = item;
+			}
+		}
+		
+		return item_in_inventory;
 	}
 }

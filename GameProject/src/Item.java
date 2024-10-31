@@ -9,6 +9,14 @@ public class Item {
 		description = description_arg;
 	}
 	
+	public void open() {
+		Game.print("You can't open that!");
+	}
+	
+	public void use() {
+		Game.print("You can't open that!");
+	}
+	
 	// Setter function
 	public void setName(String name_arg)
 	{

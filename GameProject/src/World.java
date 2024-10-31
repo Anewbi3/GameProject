@@ -24,6 +24,7 @@ public class World {
 		upstairs.addExit(bedRoom, 'w');
 		upstairs.addExit(upstairs_bathroom, 'n');
 		upstairs.addExit(livingRoom, 's');
+		upstairs.addExit(livingRoom, 'd');
 		
 		bedRoom.addExit(upstairs, 'e');
 		
@@ -39,10 +40,17 @@ public class World {
 		Item remote = new Item("Remote", "A remote capable with 9 different channel buttons.");
 		Item flowerVase = new Item("Vase", "A flower vase with African Violets in it.");
 		
+		
+		Combination combination_in_kitchen = new Combination("CombinationItem", "You've found the combination in the kitchen, already? Nice!");
+		Safe safe_in_bedroom = new Safe("Safe", "You found the safe in the bedroom, congrats!");
+		
 		livingRoom.setItemInRoom(flowerVase);
 		livingRoom.setItemInRoom(television);
 		livingRoom.setItemInRoom(remote);
 		
+		
+		kitchen.setItemInRoom(combination_in_kitchen);
+		bedRoom.setItemInRoom(safe_in_bedroom);
 		
 		Item knife = new Item("Knife", "A kitchen knife.");
 		kitchen.setItemInRoom(knife);
