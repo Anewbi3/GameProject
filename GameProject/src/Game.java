@@ -34,7 +34,12 @@ public class Game {
 					System.out.println("You can't go that way!");
 				}
 				else {
-					currentRoom = nextRoom;
+					if (nextRoom.getRoomLockState() == true) {
+						Game.print("You need a key to unlock the door.");
+					}
+					else {
+						currentRoom = nextRoom;						
+					}
 				}
 				break;
 			case "x":
@@ -68,8 +73,10 @@ public class Game {
 						}
 					}
 					
-					System.out.println(item_in_inventory.getDescription());
-					
+					if (item_in_inventory != null)
+						System.out.println(item_in_inventory.getDescription());
+					else
+						Game.print("This item was not found.");
 				}
 				
 				break;
@@ -91,7 +98,7 @@ public class Game {
 			case "use":
 				Item itemFoundInCurrentRoom = currentRoom.getItemInRoom(words[1]);
 				
-				System.out.println("You are attempting to take the " + words[1] + ".");
+				System.out.println("Using " + words[1] + " now.");
 				
 				if (itemFoundInCurrentRoom != null) {
 					itemFoundInCurrentRoom.use();
@@ -125,7 +132,11 @@ public class Game {
 							item_in_inventory = item_found_in_inventory;
 						}
 					}
-					item_in_inventory.use();
+					
+					if (item_in_inventory != null)
+						item_in_inventory.use();
+					else
+						Game.print("Such item does not exist.");
 				}
 				break;
 			default:

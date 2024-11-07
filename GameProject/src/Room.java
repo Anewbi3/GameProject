@@ -1,7 +1,9 @@
 import java.util.HashMap;
 
 public class Room {
+	private String name;
 	private String room_description;
+	private Boolean lock = false;
 	
 	private Room east;
 	private Room west;
@@ -9,11 +11,16 @@ public class Room {
 	private Room south;
 	private Room up;
 	private Room down;
+
 	
+
+
+
 	private HashMap<String, Item> item = new HashMap<String, Item>();
 	
 	
-	public Room(String init_room_description) {
+	public Room(String room_name, String init_room_description) {
+		name = room_name;
 		room_description  = init_room_description;
 	}
 	
@@ -79,6 +86,22 @@ public class Room {
 	public void removeItemInRoom(String item_name) 
 	{
 		item.remove(item_name);
+	}
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Boolean getRoomLockState() {
+		return lock;
+	}
+
+	public void setRoomLockState(Boolean state) {
+		lock = state;
 	}
 	
 	

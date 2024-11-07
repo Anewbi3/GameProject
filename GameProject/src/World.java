@@ -1,15 +1,15 @@
 
 public class World {
 	public static Room buildWorld() {
-		Room livingRoom = new Room("You are in the living room.");	
-		Room kitchen = new Room("You are in the kitchen.");
-		Room outside = new Room("You are outside your home.");
-		Room garden = new Room("You are admiring your beautiful garden.");
-		Room upstairs = new Room("You are upstairs");
-		Room bedRoom = new Room("You are in your humble abode...your bedroom.");
-		Room upstairs_bathroom = new Room("You are permitted to blow up the bathroom!");
+		Room livingRoom = new Room("Living Room", "You are in the living room.");	
+		Room kitchen = new Room("Kitchen", "You are in the kitchen.");
+		Room outside = new Room("Outside", "You are outside your home.");
+		Room garden = new Room("Garden", "You are admiring your beautiful garden.");
+		Room upstairs = new Room("Upstairs", "You are upstairs");
+		Room bedRoom = new Room("Bedroom", "You are in your humble abode...your bedroom.");
+		Room upstairs_bathroom = new Room("Upstairs Bathroom", "You are permitted to blow up the bathroom!");
 		
-		
+		bedRoom.setRoomLockState(true);
 		livingRoom.addExit(kitchen, 'e');
 		/*CUSTOM ROOMS*/
 		
@@ -36,18 +36,20 @@ public class World {
 		kitchen.addExit(livingRoom, 'w');
 		
 		/*SET ITEMS IN A FEW ROOMS*/
-		Item television = new Item("Television", "A 35\" tv.");
-		Item remote = new Item("Remote", "A remote capable with 9 different channel buttons.");
+		Television televisionInLivingRoom = new Television("Television", "A 35\" tv.");
+		Remote remoteInLivingRoom = new Remote("Remote", "A remote capable with 9 different channel buttons.");
 		Item flowerVase = new Item("Vase", "A flower vase with African Violets in it.");
 		
 		
 		Combination combination_in_kitchen = new Combination("CombinationItem", "You've found the combination in the kitchen, already? Nice!");
 		Safe safe_in_bedroom = new Safe("Safe", "You found the safe in the bedroom, congrats!");
-		
+		KeyForUpstairsBedroom upstairs_bedroom_key = new KeyForUpstairsBedroom("Key", "This key unlocks the door the bedroom upstairs.");
+
 		livingRoom.setItemInRoom(flowerVase);
-		livingRoom.setItemInRoom(television);
-		livingRoom.setItemInRoom(remote);
-		
+		livingRoom.setItemInRoom(televisionInLivingRoom);
+		livingRoom.setItemInRoom(remoteInLivingRoom);
+		livingRoom.setItemInRoom(upstairs_bedroom_key);
+
 		
 		kitchen.setItemInRoom(combination_in_kitchen);
 		bedRoom.setItemInRoom(safe_in_bedroom);

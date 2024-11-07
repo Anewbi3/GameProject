@@ -14,7 +14,7 @@ public class Item {
 	}
 	
 	public void use() {
-		Game.print("You can't open that!");
+		Game.print("You can't use that!");
 	}
 	
 	// Setter function
