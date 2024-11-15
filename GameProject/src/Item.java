@@ -13,9 +13,27 @@ public class Item {
 		Game.print("You can't open that!");
 	}
 	
-	public void use() {
-		Game.print("You can't use that!");
+	public void close() {
+		Game.print("The " + name + "doesn't close.");
 	}
+	
+	public void use() {
+		Game.print("You can't use " + name + "!");
+	}
+	
+	public void pull() {
+		Game.print("You can't pull the " + name + ".");
+	}
+	
+	public void push() {
+		Game.print(name + " can't be pushed.");
+	}
+	
+	public void specialCommand(String command) {
+		Game.print("That doesn't work.");
+	}
+	
+	
 	
 	// Setter function
 	public void setName(String name_arg)

@@ -1,10 +1,15 @@
 import java.util.*;
+import java.io.File;
+import java.io.FileNotFoundException;
 
 public class Game {
 	public static ArrayList<Item> items = new ArrayList<Item>();
+	public static HashMap<String, String> rooms = new HashMap<String, String>();
 	static Room currentRoom = World.buildWorld();
+	
 	public static void main(String[] args) {
-		runGame();
+//		runGame();
+		readTextFile();
 	}
 	
 	public static void runGame() {
@@ -151,6 +156,24 @@ public class Game {
 	
 	public static void print(Object obj) {
 		System.out.println(obj.toString());
+	}
+	
+	public static void readTextFile() {
+		try {
+			Scanner input = new Scanner(new File("RoomsFile.txt"));
+			while(input.hasNextLine()) {
+				Thread.sleep(1000);
+				String line = input.nextLine();
+				Game.print(line);
+			}
+			input.close();
+					
+		} catch (FileNotFoundException e) {
+			// TODO: handle exception
+			Game.print("File not found!!");
+		} catch(InterruptedException ex) {
+			Game.print("Stuff happened.");
+		}
 	}
 	
 	public static Room getCurrentRoom() 
