@@ -160,12 +160,24 @@ public class Game {
 	
 	public static void readTextFile() {
 		try {
-			Scanner input = new Scanner(new File("RoomsFile.txt"));
+			File RoomsFile = new File("RoomsFile");
+			Scanner input = new Scanner(RoomsFile);
+			
+			ArrayList<String> stringsFromRoomsFile = new ArrayList<String>();
+			
 			while(input.hasNextLine()) {
 				Thread.sleep(1000);
 				String line = input.nextLine();
+		
+				
+				
 				Game.print(line);
 			}
+			
+			for(String c : stringsFromRoomsFile) {
+				System.out.println(c);
+			}
+			
 			input.close();
 					
 		} catch (FileNotFoundException e) {
