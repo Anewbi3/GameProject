@@ -1,13 +1,13 @@
 
 public class World {
 	public static Room buildWorld() {
-		Room livingRoom = new Room("Living Room", "You are in the living room.");	
-		Room kitchen = new Room("Kitchen", "You are in the kitchen.");
-		Room outside = new Room("Outside", "You are outside your home.");
-		Room garden = new Room("Garden", "You are admiring your beautiful garden.");
-		Room upstairs = new Room("Upstairs", "You are upstairs");
-		Room bedRoom = new Room("Bedroom", "You are in your humble abode...your bedroom.");
-		Room upstairs_bathroom = new Room("Upstairs Bathroom", "You are permitted to blow up the bathroom!");
+		Room livingRoom = new Room("Living Room");	
+		Room kitchen = new Room("Kitchen");
+		Room outside = new Room("Outside");
+		Room garden = new Room("Garden");
+		Room upstairs = new Room("Upstairs");
+		Room bedRoom = new Room("Bedroom");
+		Room upstairs_bathroom = new Room("Upstairs Bathroom");
 		
 		bedRoom.setRoomLockState(true);
 		livingRoom.addExit(kitchen, 'e');

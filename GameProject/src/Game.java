@@ -5,11 +5,12 @@ import java.io.FileNotFoundException;
 public class Game {
 	public static ArrayList<Item> items = new ArrayList<Item>();
 	public static HashMap<String, String> rooms = new HashMap<String, String>();
-	static Room currentRoom = World.buildWorld();
+	public static Room currentRoom = World.buildWorld();
+	
+	public static HashMap<String, Item> roomObjects = new HashMap<String, Item>();
 	
 	public static void main(String[] args) {
-//		runGame();
-		readTextFile();
+		runGame();
 	}
 	
 	public static void runGame() {
@@ -158,7 +159,7 @@ public class Game {
 		System.out.println(obj.toString());
 	}
 	
-	public static void readTextFile() {
+	public static void readRoomDataFromTextFile() {
 		try {
 			File RoomsFile = new File("RoomsFile");
 			Scanner input = new Scanner(RoomsFile);
@@ -166,26 +167,30 @@ public class Game {
 			ArrayList<String> stringsFromRoomsFile = new ArrayList<String>();
 			
 			while(input.hasNextLine()) {
-				Thread.sleep(1000);
-				String line = input.nextLine();
-		
-				
-				
-				Game.print(line);
+				// Extract the room names and description
+				if(input.hasNext("#") != true) {
+					String line = input.nextLine();
+					stringsFromRoomsFile.add(line);
+				}
+				else {
+					input.nextLine();
+				}
 			}
-			
-			for(String c : stringsFromRoomsFile) {
-				System.out.println(c);
+			// Adds the room names and descriptions to the hashmap
+			for(int s = 0; s < stringsFromRoomsFile.size(); s += 2) {
+				
+				String roomName = stringsFromRoomsFile.get(s);
+				String roomDescription = stringsFromRoomsFile.get(s + 1);
+				
+				rooms.put(roomName, roomDescription);			
 			}
 			
 			input.close();
 					
 		} catch (FileNotFoundException e) {
-			// TODO: handle exception
 			Game.print("File not found!!");
-		} catch(InterruptedException ex) {
-			Game.print("Stuff happened.");
-		}
+		} 
+
 	}
 	
 	public static Room getCurrentRoom() 
@@ -205,5 +210,9 @@ public class Game {
 		}
 		
 		return item_in_inventory;
+	}
+	
+	public static void saveGame() {
+		
 	}
 }

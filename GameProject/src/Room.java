@@ -19,9 +19,9 @@ public class Room {
 	private HashMap<String, Item> item = new HashMap<String, Item>();
 	
 	
-	public Room(String room_name, String init_room_description) {
+	public Room(String room_name) {
 		name = room_name;
-		room_description  = init_room_description;
+		room_description = getDescription();
 	}
 	
 	public Room getExit(char direction) {
@@ -94,6 +94,14 @@ public class Room {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public void setDescription(String description) {
+		this.room_description = description;
+	}
+	
+	public String getDescription() {
+		return Game.rooms.get(name);
 	}
 
 	public Boolean getRoomLockState() {
