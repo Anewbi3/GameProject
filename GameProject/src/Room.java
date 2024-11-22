@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.HashMap;
 
-public class Room {
+public class Room implements Serializable {
 	private String name;
 	private String room_description;
 	private Boolean lock = false;
@@ -114,7 +115,7 @@ public class Room {
 	
 	
 	public String toString() {
-		return room_description;
+		return getDescription();
 	}
 	
 }

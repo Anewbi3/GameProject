@@ -1,6 +1,11 @@
 import java.util.*;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 public class Game {
 	public static ArrayList<Item> items = new ArrayList<Item>();
@@ -10,6 +15,7 @@ public class Game {
 	public static HashMap<String, Item> roomObjects = new HashMap<String, Item>();
 	
 	public static void main(String[] args) {
+		readRoomDataFromTextFile();
 		runGame();
 	}
 	
@@ -212,7 +218,40 @@ public class Game {
 		return item_in_inventory;
 	}
 	
-	public static void saveGame() {
+	public static void saveGame(String fileName) {
+		File saveFile = new File(fileName);
 		
+		try {
+			FileOutputStream fos = new FileOutputStream(saveFile);
+			ObjectOutputStream stream = new ObjectOutputStream(fos);
+			
+			stream.writeObject(currentRoom);
+			stream.writeObject(items);
+			stream.writeObject(roomObjects);
+		} catch (FileNotFoundException e) {
+			System.out.println("File " + fileName + " does not exist!");
+		} catch (IOException e) {
+			System.out.println("That should not be happening!");
+		}
+	}
+	
+	public static void loadGame(String fileName) {
+		File saveFile = new File(fileName);
+		
+		try {
+			FileInputStream fis = new FileInputStream(saveFile);
+			ObjectInputStream stream = new ObjectInputStream(fis);
+			
+			currentRoom = (Room) stream.readObject();
+			items = (ArrayList<Item>) stream.readObject();
+			roomObjects = (HashMap<String, Item>) stream.readObject();
+			stream.close();
+		} catch (FileNotFoundException errorWithFileNameGiven) {
+			System.out.println("File " + fileName + " was not found!");
+		} catch (IOException errorFromObjectInputStream) {
+			System.out.println("There was an error while initiating the Object Input Stream!");
+		} catch (ClassNotFoundException terribleErrorToHave) {
+			System.out.println("You're cooked brother!!!");
+		}
 	}
 }
