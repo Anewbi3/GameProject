@@ -13,6 +13,7 @@ public class Game {
 	public static Room currentRoom = World.buildWorld();
 	
 	public static HashMap<String, Item> roomObjects = new HashMap<String, Item>();
+	public static Scanner input = new Scanner(System.in);
 	
 	public static void main(String[] args) {
 		readRoomDataFromTextFile();
@@ -22,7 +23,7 @@ public class Game {
 	public static void runGame() {
 
 		
-		Scanner input = new Scanner(System.in);
+		
 		
 		String command; // player's command
 		
