@@ -3,9 +3,13 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class GUI extends JFrame implements ActionListener {
-	public static void main(String[] args) {
-		new GUI();
-	}
+	public JTextArea textArea = new JTextArea();
+	private GridLayout layout = new GridLayout(3, 1);
+	private JPanel panel = new JPanel(layout);
+	private JLabel label = new JLabel("What would you like to do");
+	private JTextField textField = new JTextField();
+	private JButton button = new JButton("Execute");
+	
 	
 	public GUI() {
 		buildWindow();
@@ -13,14 +17,20 @@ public class GUI extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent event) {
-		
+		String s = textField.getText();
+		Game.processCommand(s);
+		textField.setText("");
 	}
 
 	private void buildWindow() {
 		setTitle("Explorer");
-		setLayout(new GridLayout(3, 3, 10, 10)); // Specifies 3x3 grid layout
-		
-		add(new JTextArea());
+		setLayout(new BorderLayout());
+		button.addActionListener(this);
+		panel.add(label);
+		panel.add(textField);
+		panel.add(button);
+		add(textArea, BorderLayout.CENTER);
+		add(panel, BorderLayout.SOUTH);
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(500, 500);
