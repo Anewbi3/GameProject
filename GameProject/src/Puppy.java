@@ -2,7 +2,7 @@ public class Puppy extends NPC {
 	private int talkCounter;
 
 	public Puppy() {
-		super("puppy", "A hideous puppy wags his tail.");
+		super("Puppy", "This is a special puppy from CSCI 257.");
 		talkCounter = 0;
 	}
 	
@@ -57,7 +57,8 @@ public class Puppy extends NPC {
 				switch(option) {
 					case 1:
 						say("Yay! Fetch!");
-						Game.print("The puppy runs off and returns with a ball.");
+						Game.print("The puppy runs off and returns with a ball.");						
+
 					break;
 					case 2:
 					say("You're a bad person! I don't like you!");

@@ -9,6 +9,7 @@ public class GUI extends JFrame implements ActionListener {
 	private JLabel label = new JLabel("What would you like to do");
 	private JTextField textField = new JTextField();
 	private JButton button = new JButton("Execute");
+	private JScrollPane scrollPane = new JScrollPane(textArea);
 	
 	
 	public GUI() {
@@ -28,8 +29,10 @@ public class GUI extends JFrame implements ActionListener {
 		button.addActionListener(this);
 		panel.add(label);
 		panel.add(textField);
-		panel.add(button);
-		add(textArea, BorderLayout.CENTER);
+		panel.add(button);		
+		textArea.setEditable(false);		
+		// add(textArea, BorderLayout.CENTER);
+		add(scrollPane, BorderLayout.CENTER);
 		add(panel, BorderLayout.SOUTH);
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

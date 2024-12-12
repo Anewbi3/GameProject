@@ -23,10 +23,10 @@ public class Game{
 		readRoomDataFromTextFile();
 		
 
-		//		runGame();
+		// runGame();
 		
-		// gameInterface = new GUI();
-		// Game.print(currentRoom);
+		gameInterface = new GUI();
+		Game.informPlayerAboutRoom(currentRoom);;
 	}
 	
 	public static void runGame() {
@@ -117,21 +117,32 @@ public class Game{
 			case "use":
 				Item itemFoundInCurrentRoom = currentRoom.getItemInRoom(words[1]);
 				
-				Game.print("Using " + words[1] + " now.");
 				
 				if (itemFoundInCurrentRoom != null) {
+					Game.print("Found " + words[1] + " in the current room.");
+					Game.print("Using " + words[1] + " now.");
 					itemFoundInCurrentRoom.use();
 				}
-				else {
+				else if (itemFoundInCurrentRoom == null) {
+					Game.print("Item not found in room, checking inventory...");
 					Item item_in_inventory = null;
 					for (Item item_found_in_inventory : items) {
-						String item_name  = item_found_in_inventory.getName();
+						String item_name = item_found_in_inventory.getName();
 						
 						if (item_name.equals(words[1])) {
 							item_in_inventory = item_found_in_inventory;
+							break;
 						}
 					}
-					item_in_inventory.use();
+					if (item_in_inventory != null) {
+						Game.print("Found " + words[1] + " in your inventory.");
+						Game.print("Using " + words[1] + " now.");
+						item_in_inventory.use();
+					}
+					else {						
+						Game.print("The item '" + words[1] + "' does not exist in the room or inventory.");
+					}
+					
 				}
 				break;
 			case "open":
@@ -183,18 +194,17 @@ public class Game{
 			if (nextRoom == null) {
 				Game.print("You can't go that way!");
 			}
+			else if (nextRoom.getRoomLockState() == true) {
+				Game.print("You need a key to unlock the door.");
+			}
 			else {
-				if (nextRoom.getRoomLockState() == true) {
-					Game.print("You need a key to unlock the door.");
-				}
-				else {
-					currentRoom = nextRoom;
-					Game.print(currentRoom);
-				}
+				currentRoom = nextRoom;				
+				informPlayerAboutRoom(currentRoom);
 			}
 			break;
 		case "x":
 			Game.print("Thanks for walking through my game!");
+			saveGame("GameProject/SaveFile.txt");
 			break;
 		case "take":
 			Item itemFoundInRoom = currentRoom.getItemInRoom(words[1]);
@@ -229,9 +239,30 @@ public class Game{
 				else
 					Game.print("This item was not found.");
 			}
-			
 			break;
-			
+
+		case "channel":
+			if (words.length < 2) {
+				Game.print("Please specify a channel number.");
+			} else {
+				int channelNumber;
+
+				try {
+					channelNumber = Integer.parseInt(words[1]);
+
+					Television tv = (Television) currentRoom.getItemInRoom("Television");
+
+					if (tv != null && tv instanceof Television) {
+						tv.changeChannel(channelNumber);
+					} else {
+						Game.print("There's no TV in this room.");
+					}
+				} catch (NumberFormatException e) {
+					Game.print("Invalid Channel Name.");
+					Game.print("Input a channel number from 1 - 99");
+				}
+			}
+
 		case "i":
 			if(items.size() == 0) {
 				Game.print("You have nothing in your inventory!");
@@ -247,25 +278,36 @@ public class Game{
 			}
 			break;
 		case "use":
-			Item itemFoundInCurrentRoom = currentRoom.getItemInRoom(words[1]);
-			
+		Item itemFoundInCurrentRoom = currentRoom.getItemInRoom(words[1]);
+				
+				
+		if (itemFoundInCurrentRoom != null) {
+			Game.print("Found " + words[1] + " in the current room.");
 			Game.print("Using " + words[1] + " now.");
-			
-			if (itemFoundInCurrentRoom != null) {
-				itemFoundInCurrentRoom.use();
-			}
-			else {
-				Item item_in_inventory = null;
-				for (Item item_found_in_inventory : items) {
-					String item_name  = item_found_in_inventory.getName();
-					
-					if (item_name.equals(words[1])) {
-						item_in_inventory = item_found_in_inventory;
-					}
+			itemFoundInCurrentRoom.use();
+		}
+		else if (itemFoundInCurrentRoom == null) {
+			Game.print("Item not found in room, checking inventory...");
+			Item item_in_inventory = null;
+			for (Item item_found_in_inventory : items) {
+				String item_name = item_found_in_inventory.getName();
+				
+				if (item_name.equals(words[1])) {
+					item_in_inventory = item_found_in_inventory;
+					break;
 				}
+			}
+			if (item_in_inventory != null) {
+				Game.print("Found " + words[1] + " in your inventory.");
+				Game.print("Using " + words[1] + " now.");
 				item_in_inventory.use();
 			}
-			break;
+			else {						
+				Game.print("The item '" + words[1] + "' does not exist in the room or inventory.");
+			}
+			
+		}
+		break;
 		case "open":
 			Item itemToOpenInCurrentRoom = currentRoom.getItemInRoom(words[1]);
 			
@@ -296,8 +338,8 @@ public class Game{
 	}
 	
 	public static void print(Object obj) {
-		System.out.println(obj.toString());
-		// gameInterface.textArea.setText(obj.toString());
+		// System.out.println(obj.toString());
+		gameInterface.textArea.append(obj.toString() + "\n");
 	}
 	
 	public static void readRoomDataFromTextFile() {
@@ -352,6 +394,29 @@ public class Game{
 		
 		return item_in_inventory;
 	}
+
+	public static void informPlayerAboutRoom(Room room) {
+		Game.print(room.getDescription());
+		ArrayList<Item> itemsInCurrentRoom = currentRoom.getAllItemsInRoom();
+
+		if(!itemsInCurrentRoom.isEmpty()) {
+			Game.print("Items in the room: ");
+			for (Item item : itemsInCurrentRoom) {
+				Game.print("- " + item.getName());
+			}
+		} else {
+			Game.print("There are no items in this room.");
+		}
+
+		ArrayList<NPC> npcsInCurrentRoom = currentRoom.getAllNPCInRoom();
+		if(!npcsInCurrentRoom.isEmpty()) {
+			Game.print("Characters in the room: ");
+			for (NPC npc : npcsInCurrentRoom) {
+				Game.print("- " + npc.getName());
+			}
+		}
+
+	}
 	
 	public static void saveGame(String fileName) {
 		File saveFile = new File(fileName);
@@ -363,6 +428,7 @@ public class Game{
 			stream.writeObject(currentRoom);
 			stream.writeObject(items);
 			stream.writeObject(roomObjects);
+			stream.close();
 		} catch (FileNotFoundException e) {
 			System.out.println("File " + fileName + " does not exist!");
 		} catch (IOException e) {

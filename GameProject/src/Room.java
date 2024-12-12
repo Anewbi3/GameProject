@@ -1,4 +1,5 @@
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Room implements Serializable {
@@ -84,6 +85,16 @@ public class Room implements Serializable {
 	{
 		return item.get(item_name);
 	}
+
+	public ArrayList<Item> getAllItemsInRoom() {
+		ArrayList<Item> allItemsInRoom = new ArrayList<Item>();
+
+		for (Item itemInRoom : item.values()) {
+			allItemsInRoom.add(itemInRoom);
+		}
+
+		return allItemsInRoom;
+	}
 	
 	public void removeItemInRoom(String item_name) 
 	{
@@ -98,6 +109,16 @@ public class Room implements Serializable {
 	public NPC getNPCInRoom(String npc_name)
 	{
 		return NON_PLAYABLE_CHARACTERS.get(npc_name);
+	}
+
+	public ArrayList<NPC> getAllNPCInRoom() {
+		ArrayList<NPC> all_npc_in_room = new ArrayList<NPC>();
+
+		for (NPC npcInRoom : NON_PLAYABLE_CHARACTERS.values()) {
+			all_npc_in_room.add(npcInRoom);
+		}
+
+		return all_npc_in_room;
 	}
 
 	public void removeNPCInRoom(String npc_name)

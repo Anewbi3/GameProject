@@ -8,6 +8,7 @@ public class World {
 		Room upstairs = new Room("Upstairs");
 		Room bedRoom = new Room("Bedroom");
 		Room upstairs_bathroom = new Room("Upstairs Bathroom");
+		Room basement = new Room("Basement");
 		
 		bedRoom.setRoomLockState(true);
 		livingRoom.addExit(kitchen, 'e');
@@ -37,11 +38,16 @@ public class World {
 		
 		/*SET ITEMS IN A FEW ROOMS*/
 		Television televisionInLivingRoom = new Television("Television", "A 35\" tv.");
+
+		televisionInLivingRoom.addChannel(1, new Channel("News", "24/7 news coverage.")); 
+		televisionInLivingRoom.addChannel(2, new Channel("Sports", "Live sports action.")); 
+		televisionInLivingRoom.addChannel(3, new Channel("Movies", "All-day movie marathon.")); 
 		Remote remoteInLivingRoom = new Remote("Remote", "A remote capable with 9 different channel buttons.");
 		Item flowerVase = new Item("Vase", "A flower vase with African Violets in it.");
+		Ball ball = new Ball("Ball", "A ball to play fetch with the dog outside.");
 		
 		
-		Combination combination_in_kitchen = new Combination("CombinationItem", "You've found the combination in the kitchen, already? Nice!");
+		Combination combination_in_kitchen = new Combination("Combination", "You've found the combination in the kitchen, already? Nice!");
 		Safe safe_in_bedroom = new Safe("Safe", "You found the safe in the bedroom, congrats!");
 		KeyForUpstairsBedroom upstairs_bedroom_key = new KeyForUpstairsBedroom("Key", "This key unlocks the door the bedroom upstairs.");
 
@@ -59,6 +65,11 @@ public class World {
 		
 		Item tissue = new Item("Tissue", "A flower vase with African Violets in it.");
 		upstairs_bathroom.setItemInRoom(tissue);
+		
+		Puppy professor_made_puppy = new Puppy();
+		outside.setNPCInRoom(professor_made_puppy);
+		outside.setItemInRoom(ball);
+
 		
 		
 		
