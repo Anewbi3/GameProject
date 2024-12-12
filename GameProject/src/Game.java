@@ -25,8 +25,8 @@ public class Game{
 
 		//		runGame();
 		
-		gameInterface = new GUI();
-		Game.print(currentRoom);
+		// gameInterface = new GUI();
+		// Game.print(currentRoom);
 	}
 	
 	public static void runGame() {
@@ -296,12 +296,13 @@ public class Game{
 	}
 	
 	public static void print(Object obj) {
-		gameInterface.textArea.setText(obj.toString());
+		System.out.println(obj.toString());
+		// gameInterface.textArea.setText(obj.toString());
 	}
 	
 	public static void readRoomDataFromTextFile() {
 		try {
-			File RoomsFile = new File("RoomsFile");
+			File RoomsFile = new File("GameProject/RoomsFile.txt");
 			Scanner input = new Scanner(RoomsFile);
 			
 			ArrayList<String> stringsFromRoomsFile = new ArrayList<String>();

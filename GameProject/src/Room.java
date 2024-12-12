@@ -18,6 +18,7 @@ public class Room implements Serializable {
 
 
 	private HashMap<String, Item> item = new HashMap<String, Item>();
+	private HashMap<String, NPC> NON_PLAYABLE_CHARACTERS = new HashMap<String, NPC>();
 	
 	
 	public Room(String room_name) {
@@ -87,6 +88,21 @@ public class Room implements Serializable {
 	public void removeItemInRoom(String item_name) 
 	{
 		item.remove(item_name);
+	}
+
+	public void setNPCInRoom(NPC npc)
+	{
+		NON_PLAYABLE_CHARACTERS.put(npc.getName(), npc);
+	}
+
+	public NPC getNPCInRoom(String npc_name)
+	{
+		return NON_PLAYABLE_CHARACTERS.get(npc_name);
+	}
+
+	public void removeNPCInRoom(String npc_name)
+	{
+		NON_PLAYABLE_CHARACTERS.remove(npc_name);
 	}
 	
 	public String getName() {
