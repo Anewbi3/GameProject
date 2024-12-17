@@ -8,6 +8,7 @@ public class Television extends Item{
 	private Boolean tvState = false;
 	
 	private Channel currentChannel;
+	private Boolean triedToDisplayCurrentChannel = false;
 	
 	private HashMap<Integer, Channel> channels = new HashMap<Integer, Channel>();
 	
@@ -44,19 +45,32 @@ public class Television extends Item{
 	
 	public void displayCurrentChannel()
 	{
-		if (currentChannel != null) {
-			Game.print("Current Channel: " + currentChannel.getName());
-			Game.print(currentChannel.getDescription());
+		if (tvState) {
+			if (currentChannel != null) {
+				Game.print("Current Channel: " + currentChannel.getName());
+				Game.print(currentChannel.getDescription());
+			}
+		} else {
+			triedToDisplayCurrentChannel = true;
+			Game.print("The TV is off. Turn it on to view channels.");
 		}
 	}
 	
 	
 	public void changeChannel(int channel_number) {
-		if (channels.containsKey(channel_number)) {
-			currentChannel = channels.get(channel_number);
-			displayCurrentChannel();
+		if (tvState) {
+			if (channels.containsKey(channel_number)) {
+				currentChannel = channels.get(channel_number);
+				displayCurrentChannel();
+			} else {
+				Game.print("Channel " + channel_number + " was not found.");
+			}
 		} else {
-			Game.print("Channel " + channel_number + " was not found.");
+			if (triedToDisplayCurrentChannel) {
+				Game.print("The TV is STILL off dude. Turn it on!");
+			} else {
+				Game.print("The TV is off. Turn it on to change channels.");
+			}
 		}
 		
 	}

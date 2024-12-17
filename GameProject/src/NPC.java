@@ -1,3 +1,5 @@
+import java.awt.event.ActionListener;
+import java.awt.event.ComponentListener;
 
 public class NPC {
 	private String name;
@@ -17,7 +19,7 @@ public class NPC {
 	}
 	
 	public void say (String dialog) {
-		Game.print(name + ": " + dialog);
+		Game.print(dialog);
 	}
 	
 	public void talk() {
@@ -32,9 +34,10 @@ public class NPC {
 		for (int i = 0; i < options.length; i++) {
 			Game.print("Option " + (i + 1) + ": " + options[i]);
 		}
-		
+
 		Game.print("Enter an option (1-" + options.length+ ") : ");
 		int option = Game.input.nextInt();
+		// int option = Integer.parseInt(Game.gameInterface.textArea.getText());
 		Game.input.nextLine();
 		response(option);
 	}

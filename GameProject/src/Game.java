@@ -21,10 +21,7 @@ public class Game{
 	
 	public static void main(String[] args) {
 		readRoomDataFromTextFile();
-		
-
-		// runGame();
-		
+				
 		gameInterface = new GUI();
 		Game.informPlayerAboutRoom(currentRoom);;
 	}
@@ -262,6 +259,21 @@ public class Game{
 					Game.print("Input a channel number from 1 - 99");
 				}
 			}
+			break;
+
+		case "talk":
+			if (words.length < 2) {
+				Game.print("You need to specify, whom to talk to.");
+			} else {
+				NPC npc = currentRoom.getNPCInRoom(words[1]);
+
+				if (npc != null) {
+					npc.talk();
+				} else {
+					Game.print("There is no one around here with such name. Maybe check the next town.");
+				}
+			}
+		break;
 
 		case "i":
 			if(items.size() == 0) {
@@ -338,7 +350,8 @@ public class Game{
 	}
 	
 	public static void print(Object obj) {
-		// System.out.println(obj.toString());
+		// gameInterface.textArea.setText(obj.toString() + );
+		System.out.println(obj.toString() + "\n");
 		gameInterface.textArea.append(obj.toString() + "\n");
 	}
 	

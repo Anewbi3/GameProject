@@ -40,4 +40,8 @@ public class GUI extends JFrame implements ActionListener {
 		setLocationRelativeTo(null); // Center window
 		setVisible(true); // Make window appear
 	}
+
+	public JButton getButton() {
+		return this.button;
+	}
 }

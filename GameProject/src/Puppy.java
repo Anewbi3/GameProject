@@ -1,22 +1,23 @@
 public class Puppy extends NPC {
-	private int talkCounter;
+	private int talkCounter = 1;
+	private int talkCounterMax = 3;
 
 	public Puppy() {
 		super("Puppy", "This is a special puppy from CSCI 257.");
-		talkCounter = 0;
 	}
 	
 	@Override
 	public void talk() {
-		
+		System.out.println("Starting talk method, talkCounter: " + talkCounter);
 		switch(talkCounter) {
 			case 1:
 			say("Hi! I'm an adorable puppy!");
-			String[] optionsForFirstTalkCounter = {
-					"Yes you are! Who's a good boy?",
-					"Ew, no. You're actually kinda hideous."
-			};
-			getResponse(optionsForFirstTalkCounter);
+			// Game.print("Hi! I'm an adorable puppy!");
+			// String[] optionsForFirstTalkCounter = {
+			// 		"Yes you are! Who's a good boy?",
+			// 		"Ew, no. You're actually kinda hideous."
+			// };
+			// getResponse(optionsForFirstTalkCounter);
 			break;
 			case 2:
 				say("Hey! Wanna play fetch? Say yes! Say yes!");
@@ -32,13 +33,14 @@ public class Puppy extends NPC {
 				say("Yip!");
 				Game.print("The puppy wags its tail.");
 			break;
-			default:
-				Game.print("The dog ignores you.");
 		}
-		talkCounter++;
+
+		updateTalkCounter();
+		System.out.println("Ending talk method, talkCounter: " + talkCounter);
 
 	}
 
+	@Override
 	public void response(int option)
 	{
 		switch (talkCounter) {
@@ -67,5 +69,13 @@ public class Puppy extends NPC {
 				break;
 		}
 
+	}
+
+	private void updateTalkCounter() {
+		System.out.println("Updating talk counter from: " + talkCounter);
+		if ( talkCounter <= talkCounterMax ) {
+			talkCounter += 1;
+		}
+		System.out.println("Updated talk counter to: " + talkCounter);;
 	}
 }

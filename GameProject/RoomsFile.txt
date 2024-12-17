@@ -18,3 +18,6 @@ You are in your homble abode...your bedroom.
 #
 Upstairs Bathroom
 You are permitted to decimate the bathroom.
+#
+Basement
+You are in the basement. This is where the critters hide but a mysterious safe is held down here also.
